@@ -286,8 +286,8 @@ function encodeToRot13(str) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  return (typeof value === 'string' || value instanceof String);
 }
 
 
@@ -315,8 +315,28 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  let res;
+  const sign = value.slice(-1);
+  const val = Number(value.replace(sign, '').replace('A', '1').replace('J', 11).replace('Q', '12')
+    .replace('K', '13'));
+  switch (sign) {
+    case '♣':
+      res = val - 1;
+      break;
+    case '♦':
+      res = val - 1 + 13;
+      break;
+    case '♥':
+      res = val - 1 + 26;
+      break;
+    case '♠':
+      res = val - 1 + 39;
+      break;
+    default:
+      break;
+  }
+  return res;
 }
 
 
